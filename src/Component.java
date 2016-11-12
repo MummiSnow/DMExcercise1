@@ -1,3 +1,4 @@
+import java.util.Collection;
 import java.util.List;
 
 public abstract class Component {
@@ -13,6 +14,14 @@ public abstract class Component {
 	}
 	
 	public void display() {
+		throw new UnsupportedOperationException("Current Operation is not supported for this object");
+	}
+
+	public Component getFather(){
+		throw new UnsupportedOperationException("Current Operation is not supported for this object");
+	}
+
+	public Collection<Component> getLeafs(){
 		throw new UnsupportedOperationException("Current Operation is not supported for this object");
 	}
 	
