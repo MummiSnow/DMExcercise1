@@ -48,4 +48,9 @@ public class Composite extends Component {
 		if (father == null) return null;
 		return father;
 	}
+
+	@Override
+	public String toString() {
+		return name;
+	}
 }
