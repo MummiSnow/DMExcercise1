@@ -25,8 +25,8 @@ public class Main {
 	}
 
 	@Command(description = "Compares leaf and parent branch")
-	public void checkParent(@Param(name = "leaf") String leaf,
-							@Param(name = "branch") String father)
+	public void checkParent(@Param(name = "branch") String father,
+							@Param(name = "leaf") String leaf)
 
 	{
 		if (leaf.trim().length() == 0 && father.trim().length() != 0) {
@@ -41,8 +41,8 @@ public class Main {
 	}
 
 	@Command(description = "Compares leaf and grandparent branch")
-	public void checkGrandparent(@Param(name = "leaf") String leaf,
-								 @Param(name = "branch") String grandfather)
+	public void checkGrandparent(@Param(name = "branch") String grandfather,
+								 @Param(name = "leaf") String leaf)
 
 	{
 		Collection<Component> leafs = new ArrayList<>();
@@ -66,8 +66,8 @@ public class Main {
 	}
 
 	@Command(description = "Add leafs")
-	public void addLeaf(@Param(name = "leaf") String leaf,
-						@Param(name = "branch") String branch)
+	public void addLeaf(@Param(name = "branch") String branch,
+						@Param(name = "leaf") String leaf)
 	{
 		if (components.size() == 0)
 		{
