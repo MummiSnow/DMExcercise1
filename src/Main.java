@@ -38,7 +38,7 @@ public class Main {
 			Component retFather = components.get(leaf).getFather();
 			System.out.println(retFather);
 		} else {
-			return components.get(father) == components.get(leaf).getFather();
+			System.out.println(components.get(father) == components.get(leaf).getFather());
 		}
 	}
 
@@ -48,16 +48,22 @@ public class Main {
 
 	{
 		Collection<Component> leafs = new ArrayList<>();
-		if (leaf.trim().length() == 0 && grandfather.trim().length() != 0) {
-			for (Component father : components.get(grandfather).getLeafs()) {
-				leafs += components.get(father).getLeafs();
+		if (leaf.trim().length() == 0 && grandfather.trim().length() != 0)
+		{
+			for (Component father : components.get(grandfather).getLeafs())
+			{
+				leafs.addAll(father.getLeafs());
 			}
 			System.out.println(leafs);
-		} else if (grandfather.trim().length() == 0 && leaf.trim().length() != 0) {
+		}
+		else if (grandfather.trim().length() == 0 && leaf.trim().length() != 0)
+		{
 			Component gfather = components.get(leaf).getFather().getFather();
 			System.out.println(gfather);
-		} else {
-			return (components.get(grandfather) == components.get(leaf).getFather().getFather());
+		}
+		else
+		{
+			System.out.println((components.get(grandfather) == components.get(leaf).getFather().getFather()));
 		}
 	}
 
