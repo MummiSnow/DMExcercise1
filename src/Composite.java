@@ -44,6 +44,7 @@ public class Composite extends Component {
 	@Override
 	public Component getFather()
 	{
+		if (father != null) return null;
 		return father;
 	}
 }

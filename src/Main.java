@@ -3,10 +3,7 @@ import asg.cliche.Param;
 import asg.cliche.Shell;
 import asg.cliche.ShellFactory;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Set;
+import java.util.*;
 
 public class Main {
 
@@ -67,6 +64,20 @@ public class Main {
 			System.out.println((components.get(grandfather) == components.get(leaf).getFather().getFather()));
 		}
 	}
+
+	@Command(description = "Add leafs")
+	public void addLeaf(@Param(name = "leaf") String leaf,
+						@Param(name = "branch") String branch)
+	{
+		if (components.size() == 0)
+		{
+			components.put(branch, new Composite(branch, null));
+		}
+		components.put(leaf,new Composite(leaf, components.get(branch)));
+	}
+
+
+
 
 
 }
