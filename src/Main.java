@@ -15,15 +15,16 @@ public class Main {
 	public Main() throws Exception
 	{
 
-		Main main = new Main();
 
-		Shell shell = ShellFactory.createConsoleShell("", "Welcome to console - ?help for instructions", main);
-		shell.commandLoop();
 
 	}
 
-	public static void main(String[] args) {
-		System.out.println("Hello");
+	public static void main(String[] args) throws Exception {
+		Main main = new Main();
+
+		Shell shell = ShellFactory.createConsoleShell("Cliche>", "Welcome to console - ?help for instructions", main);
+		shell.commandLoop();
+
 	}
 
 	@Command(description = "Compares leaf and parent branch")
