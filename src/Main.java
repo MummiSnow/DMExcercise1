@@ -36,7 +36,7 @@ public class Main {
 			Component retFather = components.get(leaf).getFather();
 			System.out.println(retFather);
 		} else {
-			System.out.println(components.get(father) == components.get(leaf).getFather());
+			System.out.println(components.get(father).equals(components.get(leaf).getFather()));
 		}
 	}
 
@@ -76,7 +76,11 @@ public class Main {
 		components.put(leaf,new Composite(leaf, components.get(branch)));
 	}
 
-
+	@Command(description = "display Leafs")
+	public void displayLeafs(@Param(name = "branch") String branch)
+	{
+		components.get(branch).display();
+	}
 
 
 

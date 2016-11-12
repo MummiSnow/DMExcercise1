@@ -13,6 +13,7 @@ public class Composite extends Component {
 		this.name = name;
 		this.children = new ArrayList<>();
 		this.father = father;
+		if (father!= null) father.addChild(this);
 	}
 	
 	
@@ -44,7 +45,7 @@ public class Composite extends Component {
 	@Override
 	public Component getFather()
 	{
-		if (father != null) return null;
+		if (father == null) return null;
 		return father;
 	}
 }
