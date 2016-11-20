@@ -9,11 +9,23 @@ public abstract class Component {
 		throw new UnsupportedOperationException("Current Operation is not supported for this object");
 	}
 	
+	public String getName(){
+		throw new UnsupportedOperationException("Current Operation is not supported for this object");
+	}
+	
+	public void setParent(Component parent) {
+		throw new UnsupportedOperationException("Current Operation is not supported for this object");
+	}
+	
 	public void removeChild(Component component) {
 		throw new UnsupportedOperationException("Current Operation is not supported for this object");
 	}
 	
-	public void display() {
+	public boolean isRoot() {
+		throw new UnsupportedOperationException("Current Operation is not supported for this object");
+	}
+	
+	public boolean isChild() {
 		throw new UnsupportedOperationException("Current Operation is not supported for this object");
 	}
 
@@ -21,7 +33,7 @@ public abstract class Component {
 		throw new UnsupportedOperationException("Current Operation is not supported for this object");
 	}
 
-	public Collection<Component> getLeafs(){
+	public Collection<Component> getChildren(){
 		throw new UnsupportedOperationException("Current Operation is not supported for this object");
 	}
 	

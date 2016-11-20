@@ -6,16 +6,23 @@ import java.util.List;
 public class Composite extends Component {
 	
 	private String name;
-	private Component father;
+	private Component parent;
 	private List<Component> children;
 	
-	public Composite(String name, Component father) {
+	public Composite(String name, Component parent) {
 		this.name = name;
 		this.children = new ArrayList<>();
-		this.father = father;
-		if (father!= null) father.addChild(this);
+		this.parent = parent;
+		if (parent != null) parent.addChild(this);
 	}
 	
+	public String getName() {
+		return name;
+	}
+	
+	public void setParent(Component parent) {
+		this.parent = parent;
+	}
 	
 	@Override
 	public void addChild(Component component) {
@@ -27,17 +34,19 @@ public class Composite extends Component {
 		children.remove(component);
 	}
 	
-	@Override
-	public void display() {
-		System.out.println(name);
-		int depth = 0;
-		for (Component comp : children) {
-			comp.display();
-		}
+	public boolean isRoot() {
+		return (this.parent == null);
+	}
+	
+	public boolean isChild(){
+		if (this.children.size() == 0)
+			return true;
+		else
+			return false;
 	}
 
 	@Override
-	public Collection<Component> getLeafs()
+	public Collection<Component> getChildren()
 	{
 		return children;
 	}
@@ -45,7 +54,7 @@ public class Composite extends Component {
 	@Override
 	public Component getFather()
 	{
-		if (father == null) return null;
-		return father;
+		if (parent == null) return null;
+		return parent;
 	}
 }
