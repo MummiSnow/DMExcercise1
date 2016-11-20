@@ -11,11 +11,7 @@ public class Main {
 	private static HashMap<String, Component> components = new HashMap<>();
 	public Main() throws Exception
 	{
-		
-		
-		
-		
-		
+
 
 
 	}
@@ -36,29 +32,36 @@ public class Main {
 		
 	}
 
-	@Command(description = "Compares leaf and parent branch")
+	@Command(description = "Compares leaf and parent branch. Please put x for unknown branch and y for unknown leaf")
 	public void checkParent(@Param(name = "branch") String father,
 							@Param(name = "leaf") String leaf)
 
 	{
-		if (leaf.trim().length() == 0 && father.trim().length() != 0) {
-			Collection<Component> leafs = components.get(father).getChildren();
+		if (leaf.equals("y"))
+		{
+			Collection<Component> leafs = components.get(father).getLeafs();
 			System.out.println(leafs);
-		} else if (father.trim().length() == 0 && leaf.trim().length() != 0) {
+		}
+		else if (father.equals("x"))
+		{
 			Component retFather = components.get(leaf).getFather();
 			System.out.println(retFather);
-		} else {
+		}
+		else
+		{
 			System.out.println(components.get(father).equals(components.get(leaf).getFather()));
 		}
 	}
 
-	@Command(description = "Compares leaf and grandparent branch")
+	@Command(description = "Compares leaf and grandparent branch. Please put gf for unknown branch and gc for unknown leaf")
 	public void checkGrandparent(@Param(name = "branch") String grandfather,
 								 @Param(name = "leaf") String leaf)
-
 	{
+		System.out.println("Grandfather check has been called.");
+		System.out.println(grandfather);
+		System.out.println(leaf);
 		Collection<Component> leafs = new ArrayList<>();
-		if (leaf.trim().length() == 0 && grandfather.trim().length() != 0)
+		if (leaf.equals("gc"))
 		{
 			for (Component father : components.get(grandfather).getChildren())
 			{
@@ -66,7 +69,7 @@ public class Main {
 			}
 			System.out.println(leafs);
 		}
-		else if (grandfather.trim().length() == 0 && leaf.trim().length() != 0)
+		else if (grandfather.equals("gf"))
 		{
 			Component gfather = components.get(leaf).getFather().getFather();
 			System.out.println(gfather);
