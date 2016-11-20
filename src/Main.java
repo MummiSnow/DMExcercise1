@@ -21,6 +21,8 @@ public class Main {
 		Component child = new Composite("child1",root);
 		Component child2 = new Composite("child2",root);
 		components.put(root.getName(), root );
+		components.put(child.getName(), child);
+		components.put(child2.getName(), child2);
 		Main main = new Main();
 
 		Shell shell = ShellFactory.createConsoleShell("Cliche>", "Welcome to console - ?help for instructions", main);
@@ -39,7 +41,7 @@ public class Main {
 	{
 		if (leaf.equals("y"))
 		{
-			Collection<Component> leafs = components.get(father).getLeafs();
+			Collection<Component> leafs = components.get(father).getChildren();
 			System.out.println(leafs);
 		}
 		else if (father.equals("x"))
@@ -84,11 +86,11 @@ public class Main {
 	public void addRoot(@Param(name = "branch") String branch,
 						@Param(name = "leaf") String leaf){
 		Component oldRoot = components.get(leaf);
-		Component newRoot = new Composite(leaf,null);
+		Component newRoot = new Composite(branch,null);
 		if (oldRoot.isRoot()) {
 			System.out.println("Root transfered from: " + leaf + " to "+ branch);
 			newRoot.addChild(oldRoot);
-			components.put(leaf,newRoot);
+			components.put(branch,newRoot);
 		}
 		
 	}
@@ -96,11 +98,12 @@ public class Main {
 	@Command(description = "Add leafs")
 	public void addLeaf(@Param(name = "branch") String branch,
 						@Param(name = "leaf") String leaf) {
-		if (components.get(branch).isRoot()) {
-			components.put(leaf, new Composite(leaf, components.get(branch)));
-			System.out.println("iam the root - added " + leaf + " to children");
-		} else if(components.get(branch).isChild()){
-			System.out.println("iam a child: ");
+		
+		
+		if (components.get(branch).isChild() || components.get(branch).isRoot()) {
+			Component newChild = new Composite(leaf, components.get(branch));
+			components.put(leaf, newChild);
+			
 		} else {
 			components.forEach((k,v)->{
 				System.out.println("key: "+k+" value: "+v.getName());
