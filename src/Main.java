@@ -23,6 +23,7 @@ public class Main {
 		components.put(root.getName(), root );
 		components.put(child.getName(), child);
 		components.put(child2.getName(), child2);
+		
 		Main main = new Main();
 
 		Shell shell = ShellFactory.createConsoleShell("Cliche>", "Welcome to console - ?help for instructions", main);
@@ -37,7 +38,6 @@ public class Main {
 	@Command(description = "Compares leaf and parent branch. Please put x for unknown branch and y for unknown leaf")
 	public void checkParent(@Param(name = "branch") String father,
 							@Param(name = "leaf") String leaf)
-
 	{
 		if (leaf.equals("y"))
 		{
@@ -88,9 +88,11 @@ public class Main {
 		Component oldRoot = components.get(leaf);
 		Component newRoot = new Composite(branch,null);
 		if (oldRoot.isRoot()) {
-			System.out.println("Root transfered from: " + leaf + " to "+ branch);
+			System.out.println("Root transferred from: " + leaf + " to "+ branch);
 			newRoot.addChild(oldRoot);
+			oldRoot.setParent(newRoot);
 			components.put(branch,newRoot);
+			
 		}
 		
 	}
@@ -100,16 +102,13 @@ public class Main {
 						@Param(name = "leaf") String leaf) {
 		
 		
-		if (components.get(branch).isChild() || components.get(branch).isRoot()) {
+		
 			Component newChild = new Composite(leaf, components.get(branch));
 			components.put(leaf, newChild);
 			
-		} else {
-			components.forEach((k,v)->{
-				System.out.println("key: "+k+" value: "+v.getName());
-				
-			});
-		}
+		
+			//components.forEach((k,v)-> System.out.println("key: "+k+" value: "+v.getName()));
+		
 		
 		
 	}
@@ -127,6 +126,7 @@ public class Main {
 		}
 		
 	}
+	
 	private static void printTree(Component node, String appender) {
 			System.out.println(appender + node.getName());
 			for (Component each : node.getChildren()) {
