@@ -20,34 +20,72 @@ public class Main {
 		Component root = new Composite("root",null);
 		Component child = new Composite("child1",root);
 		Component child2 = new Composite("child2",root);
+		Component child3 = new Composite("child11",child);
+		Component child4 = new Composite("child12",child);
 		components.put(root.getName(), root );
 		components.put(child.getName(), child);
 		components.put(child2.getName(), child2);
+		components.put(child3.getName(), child3);
+		components.put(child4.getName(), child4);
 		Main main = new Main();
 
 		Shell shell = ShellFactory.createConsoleShell("Cliche>", "Welcome to console - ?help for instructions", main);
 		shell.commandLoop();
-		
-		
-		
-		
-		
+
+	}
+
+
+	@Command(description = "Variable for various relations")
+	public void relations(@Param(name = "Upwards") int up,
+						  @Param(name = "Downwards") int down,
+						  @Param(name = "StartLeaf") String leaf)
+	{
+		checkRelations(up,down,leaf);
+	}
+
+	private Collection<Component> checkRelations(int up, int down, String startPoint)
+	{
+		Collection<Component> leafs = new ArrayList<>();
+		Collection<Component> oldTempLeafs = new ArrayList<>();
+		Collection<Component> tempLeafs = new ArrayList<>();
+		Component currentLeaf = components.get(startPoint);
+		for (int i = 0; i < up; i++)
+		{
+			currentLeaf = currentLeaf.getFather();
+		}
+		tempLeafs.add(currentLeaf);
+		for (int i = 0; i < down; i++)
+		{
+			oldTempLeafs.clear();
+			oldTempLeafs.addAll(tempLeafs);
+			tempLeafs.clear();
+			for (Component comp : oldTempLeafs)
+			{
+				tempLeafs.addAll(comp.getChildren());
+				if (i - down == -1)
+				{
+					leafs.addAll(comp.getChildren());
+				}
+			}
+		}
+		if (down == 0)
+		{
+			leafs.add(currentLeaf);
+		}
+		return leafs;
 	}
 
 	@Command(description = "Compares leaf and parent branch. Please put x for unknown branch and y for unknown leaf")
 	public void checkParent(@Param(name = "branch") String father,
 							@Param(name = "leaf") String leaf)
-
 	{
 		if (leaf.equals("y"))
 		{
-			Collection<Component> leafs = components.get(father).getChildren();
-			System.out.println(leafs);
+			System.out.println(checkRelations(0,1,father));
 		}
 		else if (father.equals("x"))
 		{
-			Component retFather = components.get(leaf).getFather();
-			System.out.println(retFather);
+			System.out.println(checkRelations(1,0,leaf));
 		}
 		else
 		{
@@ -59,22 +97,15 @@ public class Main {
 	public void checkGrandparent(@Param(name = "branch") String grandfather,
 								 @Param(name = "leaf") String leaf)
 	{
-		System.out.println("Grandfather check has been called.");
-		System.out.println(grandfather);
-		System.out.println(leaf);
+
 		Collection<Component> leafs = new ArrayList<>();
 		if (leaf.equals("gc"))
 		{
-			for (Component father : components.get(grandfather).getChildren())
-			{
-				leafs.addAll(father.getChildren());
-			}
-			System.out.println(leafs);
+			System.out.println(checkRelations(0,2,grandfather));
 		}
 		else if (grandfather.equals("gf"))
 		{
-			Component gfather = components.get(leaf).getFather().getFather();
-			System.out.println(gfather);
+			System.out.println(checkRelations(2,0,leaf));
 		}
 		else
 		{
