@@ -52,8 +52,7 @@ public class Composite extends Component {
 	}
 
 	@Override
-	public Component getFather()
-	{
+	public Component getFather(){
 		if (parent == null) return null;
 		return parent;
 	}
